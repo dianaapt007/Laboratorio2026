@@ -1,5 +1,3 @@
-using System.ComponentModel.Design;
-
 Console.WriteLine("PROYECTO 1: CARWASH");
 Console.WriteLine("Hecho por: Colleth Sánchez y Diana Pérez");
 //Declarar variables
@@ -26,14 +24,14 @@ operador = Console.ReadLine();
 
 while (true) //while true para mantener el sistema en ejecución
 {
-    while (true) //Validación del menú 
+    do //Validación del menú 
     {
         Console.WriteLine("Seleccione una opción: \n 1. Crear Ticket \n 2. Lavar llantas y Rines \n 3. Consultar monto \n 4. Salida \n 5. Salir"); //Seleccione opción de menú
-        if (int.TryParse(Console.ReadLine(), out opcion) && opcion >= 1 && opcion <= 5) //Validar la opcion ingresada sea un numero y esté en rango
-            break;
-        Console.WriteLine("Caracter inválida, seleccione una opción del menú:");
-
-    }
+        if (!int.TryParse(Console.ReadLine(), out opcion)) //Validar la opcion ingresada sea un numero y esté en rango
+            Console.WriteLine("Carácter inválido. Seleccione una opción del menú");
+        else if (opcion < 1 || opcion > 5)
+            Console.WriteLine("Número fuera de rango. Seleccione una opción del menú");
+    } while (opcion < 1||opcion > 5);
 
     switch (opcion)
     {
@@ -241,7 +239,7 @@ while (true) //while true para mantener el sistema en ejecución
                 Console.Write("Ingrese un número del 1 al 3: "); //Promoción y dinámica.
                 if (!int.TryParse(Console.ReadLine(), out numeroCliente))
                 {
-                    Console.WriteLine("Carácter inválido. Ingrese 1 o 2");
+                    Console.WriteLine("Carácter inválido. Ingrese un número");
                 }
                 else if (numeroCliente < 1 || numeroCliente > 3)
                 {
