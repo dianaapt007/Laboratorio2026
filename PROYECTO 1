@@ -1,0 +1,289 @@
+using System.ComponentModel.Design;
+
+Console.WriteLine("PROYECTO 1: CARWASH");
+Console.WriteLine("Hecho por: Colleth Sánchez y Diana Pérez");
+//Declarar variables
+string operador; //Nombre del operador
+int opcion = 0; //Opción del menú
+bool ticketActivo = false; //Indica hay ticket en uso
+string placa = ""; //Placa del vehículo
+int carType = 0; //Tipo de vehículo
+string nombreCliente = ""; //Nombre del cliente
+int sizeRines = 0; //Tamaño de rines
+int baseCost = 0; //Costo base del servicio
+bool extraService = false; //Indica si hay servicio extra
+int extraCost = 0; //Costo del servicio extra
+int totalMont = 0; //Total a pagar
+int carrosAtendidos = 0; //Contador de carros atendidos
+int carrosExtra = 0; //Contador de carros con servicios extra
+int ingresoTotal = 0; //Acumulador de ingresos
+int numeroCliente = 0; //Número elegido por el cliente
+int random = 0; //Número aleatorio del sistema
+Random rnd = new Random(); //Generador de numero aleatorio
+
+Console.WriteLine("Ingrese su nombre (operador): "); //Nombre del operado
+operador = Console.ReadLine();
+
+while (true) //while true para mantener el sistema en ejecución
+{
+    while (true) //Validación del menú 
+    {
+        Console.WriteLine("Seleccione una opción: \n 1. Crear Ticket \n 2. Lavar llantas y Rines \n 3. Consultar monto \n 4. Salida \n 5. Salir"); //Seleccione opción de menú
+        if (int.TryParse(Console.ReadLine(), out opcion) && opcion >= 1 && opcion <= 5) //Validar la opcion ingresada sea un numero y esté en rango
+            break;
+        Console.WriteLine("Caracter inválida, seleccione una opción del menú:");
+
+    }
+
+    switch (opcion)
+    {
+        case 1: //"CREAR TICKET"
+            if (ticketActivo == true) //Validación de existencia de un ticket
+            {
+                Console.WriteLine("Ticket activo"); //El ticket ya existe
+                break;
+            }
+            else
+            {
+                int crearTicket;
+                do
+                {
+                    Console.WriteLine("¿Desea crear un ticket (1=Sí, 2=No)?"); //El ticket no existe y se solicita datos
+
+                    if (!int.TryParse(Console.ReadLine(), out crearTicket))
+                    {
+                        Console.WriteLine("Carácter inválido. Ingrese un número");
+                    }
+                    else if (crearTicket < 1 || crearTicket > 2)
+                    {
+                        Console.WriteLine("Número fuera de rango. Ingrese 1 o 2");
+                    }
+                } while ((crearTicket < 1 || crearTicket > 2)); //Validar que el caracter ingresado sea un numero
+
+                if (crearTicket == 1)
+                {
+                    do //Ingreso de Placa
+                    {
+                        Console.WriteLine("Ingrese placa (Recuerde: 6 caracteres): "); //Se valida que la placa tenga 6 caractéres
+                        placa = (Console.ReadLine());
+                        if (placa.Length != 6) //Si placa es diferente a 6 caractéres, se solicitará nuevamente ingresar la placa
+                        {
+                            Console.WriteLine("Recuerde, una placa tiene 6 caracteres");
+                        }
+                    } while (placa.Length != 6);
+
+                    do //Ingreso de Tipo de Carro
+                    {
+                        Console.WriteLine("Tipo de vehículo: 1) Sedan 2) PickUp o SUV:"); //Se valida que el tipo de vehículo sea 1 o 2
+
+                        if (!int.TryParse(Console.ReadLine(), out carType))
+                        {
+                            Console.WriteLine("Carácter inválido. Ingrese 1 o 2");
+                        }
+                        else if (carType < 1 || carType > 2)
+                        {
+                            Console.WriteLine("Número fuera de rango. Ingrese 1 o 2");
+                        }
+                    } while (carType < 1 || carType > 2);
+
+                    //Asignar tarifa base
+                    if (carType == 1)
+                    {
+                        baseCost = 50; //1er cálculo
+                    }
+                    else if (carType == 2)
+                    {
+                        baseCost = 75; //2do cálculo
+                    }
+                    else
+                        Console.WriteLine("Tipo inválido");
+
+
+                    Console.WriteLine("Ingrese nombre del cliente: "); //nombre del cliente
+                    nombreCliente = Console.ReadLine();
+                    Console.WriteLine("Ticket creado correctamente.");
+                    ticketActivo = true; //Activar ticket
+                    extraService = false;
+                    extraCost = 0;
+                }
+                else if (crearTicket == 2)
+                {
+                    Console.WriteLine("Ticket no creado");
+                }
+            }
+            break;
+
+        case 2: //"SERVICIO EXTRA"
+            if (ticketActivo == false) //Se valida que exista un ticket activo
+            {
+                Console.WriteLine("No hay ticket activo");
+                break;
+            }
+            if (extraService == false) //Si no existe un servicio extra, se agrega
+            {
+                do
+                {
+                    Console.WriteLine("Ingrese tamaño de Rines (12 -22): "); //Se calcula el costo extra, según tamaño de rin
+                    if (!int.TryParse(Console.ReadLine(), out sizeRines)) //Se valida que el caracter ingresado sea un numero
+                    {
+                        Console.WriteLine("Ingrese un número para el tamaño:");
+                        continue;
+                    }
+                    //Asignar valor del costo, según su tamaño
+                    if (sizeRines >= 12 && sizeRines <= 16)
+                    {
+                        extraCost = 30;
+                    }                        
+                    else if (sizeRines >= 17 && sizeRines <= 19)
+                    {
+                        extraCost = 40;
+                    }
+                    else if (sizeRines >= 20 && sizeRines <= 22)
+                    {
+                        extraCost = 60;
+                    }
+                    else
+                        Console.WriteLine("Tamaño fuera de rango, vuelva a intentar.");
+                } while (sizeRines < 12 || sizeRines > 22);
+
+                extraService = true;
+                Console.WriteLine("Servicio extra agregado.");
+                totalMont = baseCost + extraCost; //3er cálculo 
+                Console.WriteLine("Total actual: Q" + totalMont);
+                
+                int cancelar; //Opción de cancelación de servicio
+                do
+                {
+                    Console.Write("¿Desea cancelar el servicio? (1=Sí / 2=No): ");
+                    if (!int.TryParse(Console.ReadLine(), out cancelar))
+                    {
+                        Console.WriteLine("Carácter inválido. Ingrese 1 o 2");
+                    }
+                    else if (cancelar<1||cancelar>2)
+                    {
+                        Console.WriteLine("Número fuera de rango. Ingrese 1 o 2");
+                    }
+                } while (cancelar < 1 || cancelar > 2); //Valida que el caracter ingresado sea un numero
+                
+                if (cancelar == 1)
+                {
+                    extraService = false;
+                    extraCost = 0;
+                    totalMont = baseCost;
+                    Console.WriteLine("Servicio extra cancelado.");
+                }
+                else if (cancelar ==2)
+                {
+                    Console.WriteLine("Servicio mantenido");
+                    totalMont = baseCost + extraCost;
+                    Console.WriteLine("Total actual: Q" + totalMont);
+                }
+            }
+            else
+            { //Si ya existe un servicio extra
+                Console.WriteLine("Servicio extra ya ingresado");
+                int cancelar;
+                do
+                {
+                    Console.Write("¿Desea cancelar el servicio? (1=Sí / 2=No): ");
+                    if (!int.TryParse(Console.ReadLine(), out cancelar))
+                    {
+                        Console.WriteLine("Carácter inválido. Ingrese 1 o 2");
+                    }
+                    else if (cancelar < 1 || cancelar > 2)
+                    {
+                        Console.WriteLine("Número fuera de rango. Ingrese 1 o 2");
+                    }
+                } while (cancelar <1||cancelar>2);
+
+                if (cancelar == 1)
+                {
+                    extraService = false; //Borrar datos
+                    extraCost = 0;
+                    Console.WriteLine("Servicio extra cancelado.");
+                }
+                else if (cancelar==2)
+                {
+                    Console.WriteLine("Servicio mantenido");                    
+                }
+                totalMont = baseCost + extraCost; //3er cálculo. Recalcular total
+                Console.WriteLine("Total actual: Q" + totalMont);
+            }
+                break;
+
+        case 3: //"CONSULTAR MONTO"
+            if (ticketActivo==false)
+            {
+                Console.WriteLine("No hay ticket activo.");
+                break;
+            }
+
+            totalMont = baseCost + extraCost; //3er cálculo. Suma de costo base y servicio extra
+            Console.WriteLine("MONTO"); 
+            Console.WriteLine("Tarifa base: Q" + baseCost);
+            if (extraService==true)
+                Console.WriteLine("Servicio extra: Q" + extraCost);
+            Console.WriteLine("Total a pagar: Q" + totalMont);
+            break;
+
+        case 4: //"SALIDA"
+            if (ticketActivo==false)
+            {
+                Console.WriteLine("No hay ticket activo.");
+                break;
+            }
+
+            totalMont = baseCost + extraCost; //3er cálculo. Monto final
+            Console.WriteLine("Monto final: Q" + totalMont);
+            do //Promoción
+            {
+                Console.WriteLine("PROMOCIÓN: Lavado gratis");
+                Console.Write("Ingrese un número del 1 al 3: "); //Promoción y dinámica.
+                if (!int.TryParse(Console.ReadLine(), out numeroCliente))
+                {
+                    Console.WriteLine("Carácter inválido. Ingrese 1 o 2");
+                }
+                else if (numeroCliente < 1 || numeroCliente > 3)
+                {
+                    Console.WriteLine("Número fuera de rango. Ingrese 1 o 2");
+                }
+
+            } while (numeroCliente < 1 || numeroCliente > 3);            
+            
+            random = rnd.Next(1, 4); 
+            Console.WriteLine("Número ganador: " + random);
+
+            if (numeroCliente == random) //Si el numero random es igual a numero de cliente, gana premio
+            {
+                Console.WriteLine("¡Su tarifa es gratis (suertud@)!.");
+                totalMont = 0;
+            }
+            else
+            {
+                Console.WriteLine("¡Gracias por participar!");
+            }
+            //Actualizar contadores 
+            ingresoTotal += totalMont;
+            carrosAtendidos++;
+
+            if (extraService==true)
+                carrosExtra++;
+            //Reiniciar sistema para siguiente cliente 
+            ticketActivo = false; 
+            extraService = false;
+            baseCost = 0;
+            extraCost = 0;
+            break;
+
+        case 5: //"REPORTE FINAL"
+            Console.WriteLine("REPORTE FINAL"); //Se muestra todos los valores del sistema
+            Console.WriteLine("Carros atendidos: " + carrosAtendidos);
+            Console.WriteLine("Carros con servicio extra: " + carrosExtra);
+            Console.WriteLine("Ingreso total: Q" + ingresoTotal);
+            return;
+
+    default:
+            Console.WriteLine("Ingrese una opción válida");
+            break;            
+    }
+}
