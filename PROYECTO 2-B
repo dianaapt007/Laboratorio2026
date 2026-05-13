@@ -1,0 +1,115 @@
+namespace PROYECTO_2
+{
+    class Parcela
+    {
+        public int mesActual = 0;
+        public int mesParaCosechar = 0; 
+        public bool Fertilizante = false;
+        public bool plantaSembrada = false;
+        public double ingresoPlanta = 0;
+        public string nombrePlanta = "Vacío";
+        public int mes = 0;
+        public int mesesContando = 0;
+
+        public int numEmpleados = 0;
+        public int mesesSimular = 0;
+        public double dineroActual = 0;
+        public double sueldoEmpleados = 0;
+        public int filas = 0;
+        public int columnas = 0;
+
+        public Parcela (int mesActual, int mesParaCosechar, bool fertilizante, int numEmpleados, int mesesSimular, double dineroActual, double sueldoEmpleados, int filas, int columnas)
+        {
+            this.mesActual = mesActual;
+            this.mesParaCosechar = mesParaCosechar;
+            this.Fertilizante = fertilizante;
+
+            this.numEmpleados = numEmpleados;
+            this.mesesSimular = mesesSimular;
+            this.dineroActual = dineroActual;
+            this.sueldoEmpleados = sueldoEmpleados;
+            this.filas = filas;
+            this.columnas = columnas;
+        }
+
+        public Parcela[,] terreno;
+        public void IngresarDatosEnTerreno()
+        {
+            for (int filas = 0; filas < terreno.GetLength(0); filas++)
+            {
+                for (int columnas = 0; columnas < terreno.GetLength(1); columnas++)
+                {
+
+                }
+            }
+        }
+
+        public void DefinirtipoPlanta() //procedure para definir tipo de planta en parcela seleccionada
+        {
+            int opciontipoPlanta = 0; 
+            
+            while (true) //Validación del menú de tipos de plantas
+            {
+                Console.WriteLine("Ingrese tipo de planta a sembrar \n1. Maíz \n2. Zanahoria \n3. Lechuga \n4. Vacío"); //Seleccione opción de menú de tipos de planta
+                if (int.TryParse(Console.ReadLine(), out opciontipoPlanta) && opciontipoPlanta >= 1 && opciontipoPlanta <= 4) //Validar la opcion ingresada sea un numero y esté en rango
+                    if (plantaSembrada = true)
+                        Console.WriteLine("Parcela ocupada");
+                 else 
+                    Console.WriteLine("Caracter inválido, seleccione una opción de tipo de planta:");
+                break;
+            }
+
+            switch (opciontipoPlanta) //Asignar valores de nombre, ingreso, mes y plantaSembrada para parcela seleccionada
+            {                
+                case 1:
+                    nombrePlanta = "Maíz";
+                    ingresoPlanta = 700;
+                    mesParaCosechar = 3; 
+                    plantaSembrada = true;
+                    mes = 0; 
+                    break;
+                case 2:
+                    nombrePlanta = "Zanahoria";
+                    ingresoPlanta = 500;
+                    mesParaCosechar = 2; 
+                    plantaSembrada = true;
+                    mes = 0; 
+                    break;
+                case 3:
+                    nombrePlanta = "Lechuga";
+                    ingresoPlanta = 300; 
+                    mesParaCosechar = 1;
+                    plantaSembrada = true;
+                    mes = 0;
+                    break;
+                case 4:
+                    nombrePlanta = "Vacío";
+                    ingresoPlanta = 0;
+                    mesParaCosechar = 0;
+                    plantaSembrada = false;
+                    mes = 0; 
+                    break;                
+            }
+            Console.WriteLine("Parcela definida");
+        }
+
+        public void MesesParaCosechar ()
+        {
+            mesActual = +1;
+
+            for (int filas = 0; filas < terreno.GetLength(0); filas++)
+            {
+                for (int columnas = 0; columnas < terreno.GetLength(1); columnas++)
+                {
+                    mes += 1; 
+                    if (mes==mesParaCosechar)
+                        nombrePlanta = "Vacío";
+                    ingresoPlanta = 0;
+                    mesParaCosechar = 0;
+                    plantaSembrada = false;
+
+                }
+            }
+}
+}
+}
