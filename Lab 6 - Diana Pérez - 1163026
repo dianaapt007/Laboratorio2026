@@ -1,0 +1,52 @@
+Console.WriteLine("Ejercicio 1: Cuenta bancaria");
+Console.WriteLine("Hecho por: Diana Azucena Pérez Torres. 1163026");
+double saldo = 0;
+
+Console.WriteLine("Ingrese el saldo inicial: ");
+saldo = double.Parse(Console.ReadLine());
+int opcion = 1;
+
+//Generar no. de cuenta aleatorio
+Random random = new Random();
+int numeroCuenta = random.Next(10000, 100000);
+
+//rango mínimo a máximo del número random
+while (opcion != 4)//"!=4", un número diferente a 4 
+{ //Imprimir menú 
+    Console.WriteLine("Menú de opciones: \n 1. Consultar Saldo \n 2. Depositar \n 3. Retirar\n 4. Salir\n Ingrese su opción: ");
+    opcion = int.Parse(Console.ReadLine());
+    switch (opcion)
+    {
+        case 1:
+            Console.WriteLine($"Consultar saldo : {saldo}");
+            break;
+        case 2:
+            Console.WriteLine("Depositar: ");
+            Console.WriteLine("Ingrese la cantidad a depositar: ");
+            double saldoDepositar = double.Parse(Console.ReadLine());
+            if (saldoDepositar > 0)
+            {
+                saldo = saldo + saldoDepositar;
+            }
+            Console.WriteLine($"Su saldo actual es: Q.{saldo}");
+            break;
+        case 3:
+            Console.WriteLine("Retirar");
+            Console.WriteLine("Ingrese la cantidad a retirar");
+            double saldoRetiro = double.Parse(Console.ReadLine());
+            if (saldoRetiro > 0 && saldoRetiro <= saldo)
+            {
+                saldo = saldo - saldoRetiro;
+                Console.WriteLine($"Usted retiró Q.{saldoRetiro}, por lo que su saldo actual es: Q.{saldo}");
+            }
+            else
+                Console.WriteLine("El retiro es mayor a su saldo actual");
+            break;
+        case 4:
+            Console.WriteLine("Vuelva pronto :)");
+            break;
+        default: //no se cumple ningun case 
+            Console.WriteLine("Ingrese un número válido entre 1 y 4");
+            break;
+    }
+}
