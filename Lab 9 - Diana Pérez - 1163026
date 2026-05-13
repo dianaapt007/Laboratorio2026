@@ -1,0 +1,71 @@
+class program //representacion de un objeto en la vida normal
+{ 
+    static int x = 0, y = 0; //public, se puede solicitar info de otra clase. priv, datos únicos en la clase. static, estatico
+    static void imprimir () //void=vacio
+    { 
+        Console.WriteLine($"Coordenadas actuales: {x}, {y}"); 
+    }
+    static void moverHaciaArriba()
+    {
+        y++; //sumar 1 en y, pero no en x
+    }
+    static void moverHaciaAbajo()
+    {
+        y--; //restar 1 en y, pero no en x
+    } 
+    static void moverHaciaLaDerecha() 
+    { 
+        x++; //sumar 1 en x, pero no en y
+    } 
+    static void moverHaciaLaIzquierda() 
+    { 
+        x--; //restar 1 en x, pero no en y
+    } 
+    static void sembrar() 
+    { 
+        Console.WriteLine("Ingrese nombre de la planta: "); 
+        string NombrePlanta = Console.ReadLine(); 
+        Console.WriteLine($"{NombrePlanta} ha sido sembrada <3"); 
+        Console.WriteLine($"Coordenadas: {x}, {y}"); 
+    }
+    static void salir() 
+    { 
+        return; 
+    }
+    static void Main(string[] args) //Procedimiento principal.
+    { 
+        Console.WriteLine("Ejercicio 1: Personaje 2D"); 
+        Console.WriteLine("Hecho por: Diana Pérez. 1163026");
+        int opcion = 0; //Valor inicial para ingresar
+        while(opcion !=6)
+        { 
+            Console.WriteLine("Menú \n 1. Subir \n 2. Bajar \n 3. Derecha \n 4. Izquierda \n 5. Sembrar planta \n 6. Salir");
+            Console.WriteLine("Ingrese su opción: "); opcion = int.Parse(Console.ReadLine());
+            switch (opcion) 
+            { 
+                case 1: 
+                    moverHaciaArriba(); //Invocar procedimientos
+                    imprimir(); //si existiera un parámetro, colocarlo en los parentesis
+                    break; 
+                case 2: 
+                    moverHaciaAbajo(); 
+                    imprimir(); 
+                    break; 
+                case 3: 
+                    moverHaciaLaDerecha(); 
+                    imprimir(); 
+                    break; 
+                case 4: 
+                    moverHaciaLaIzquierda(); 
+                    imprimir(); 
+                    break; 
+                case 5: 
+                    sembrar(); 
+                    break; 
+                case 6: 
+                    salir(); 
+                    break; 
+            } 
+        } 
+    } 
+}
