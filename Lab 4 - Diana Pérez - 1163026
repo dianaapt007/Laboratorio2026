@@ -1,0 +1,42 @@
+Console.WriteLine("Hecho por: Diana Pérez EST1163026");
+
+//Declaración de variables 
+int numero1, numero2, suma, resta, multiplicación, divisionEntera, divisionModular, numero3;
+float divisionReal, kmmillas, pie, piepulgada, metroskm;
+
+//Entrada de datos y conversión 
+Console.WriteLine("Ingrese un número: "); //ejercicio 1
+numero1 = int.Parse(Console.ReadLine()); 
+Console.WriteLine("Ingrese un segundo número: ");
+numero2 = int.Parse(Console.ReadLine());
+Console.WriteLine("Ingrese una cantidad en metros (no escriba metros): "); //ejercicio 2
+numero3 = int.Parse(Console.ReadLine());
+Console.WriteLine("Actividad 1: Operaciones Aritméticas");
+
+//Operaciones aritméticas
+suma = numero1 + numero2;//ejercicio 1
+resta = numero1 - numero2;
+multiplicación = numero1 *numero2;
+divisionEntera = numero1 / numero2;
+divisionReal = (float) numero1 / numero2; 
+divisionModular = numero1 % numero2; 
+metroskm = numero3 / 1000;//Ejercicio 2
+kmmillas = metroskm / (float) 1.609;
+pie = numero3 * (float)3.28084;
+piepulgada = pie * 12;
+
+//Mostrar resultados en pantalla {operacion} {operacion} = {resultado}
+Console.WriteLine(" ");
+Console.WriteLine("Resultados ejercicio1");
+Console.WriteLine($"{numero1} + {numero2} = {suma}"); 
+Console.WriteLine($"{numero1} - {numero2} = {resta}");
+Console.WriteLine($"{numero1} * {numero2} = {multiplicación}");
+Console.WriteLine($"{numero1} / {numero2} = {divisionEntera}");
+Console.WriteLine($"{numero1} / {numero2} = {divisionReal}");
+Console.WriteLine($"{numero1} % {numero2} = {divisionModular}");
+Console.WriteLine(" ");
+Console.WriteLine("Resultados ejercicio1");
+Console.WriteLine($"{numero3} m son {metroskm} km");
+Console.WriteLine($"{numero3} m son {kmmillas} millas");
+Console.WriteLine($"{numero3} m son {pie} pies");
+Console.WriteLine($"{numero3} m son {piepulgada} pulgadas"); 
