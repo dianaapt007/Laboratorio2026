@@ -1,0 +1,44 @@
+//ACTIVIDAD 1
+Console.WriteLine("Laboratorio 8. Hecho por: Diana Pérez 1163026"); 
+Console.WriteLine("Ejercicio 1: Secuencia de números \n "); 
+Console.WriteLine("Ingrese el número final de la secuencia: "); 
+int numeroFinal =int.Parse(Console.ReadLine()); 
+for (int i = 1; i <= numeroFinal; i++) 
+{ 
+    Console.WriteLine(i); 
+} 
+
+//Actividad 2
+Console.WriteLine("Ejercicio 2: Tablas de multiplicar"); 
+Console.WriteLine("Laboratorio 8. Hecho por: Diana Pérez 1163026"); 
+for (int j =1; j<=10; j++) //Este ciclo lleva el control de el nnumero de la tabla  
+  { 
+      Console.WriteLine($"Tabla del No. {j}"); 
+      for (int i = 1; i <= 10; i++) //Este ciclo lleva el contro de las multiplicaciones 
+      { 
+          Console.WriteLine($"{j} * {i} = {j*i}");
+      }  
+      Console.WriteLine(" "); 
+} //ciclos aninados - for sobre for 
+
+//ACTIVIDAD 3 
+Console.WriteLine("Ejercicio 3: Factoriales"); 
+Console.WriteLine("Ingrese un número: "); 
+int numero =int.Parse(Console.ReadLine()); 
+if (numero == 0) 
+{ 
+    Console.WriteLine("El factorial es: 1"); 
+} 
+else if (numero == 1) 
+{ 
+    Console.WriteLine("El factorial es: 1"); 
+} 
+else 
+{ 
+  int factorial = 1;
+  for (int i = 1; i<=numero; i++) 
+  { 
+      factorial *= i; 
+  }
+  Console.WriteLine($"El factorial es: {factorial}"); 
+}  
