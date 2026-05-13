@@ -1,0 +1,39 @@
+namespace Lab12_Diana_Pérez 
+{ 
+    internal class Program 
+    {
+        static int[,] matrizNumeros = new int[3, 3]; 
+        static void Actividad1() //no devuelve
+        {
+            for (int contFilas=0; contFilas<3; contFilas++) //se ejecutará de primero las columnas [0,0], [0,1]. [0,2]. [1,0]
+            {
+                for (int contCols =0; contCols<3; contCols++)                 
+                {
+                    Console.WriteLine($"Ingrese el número para la fila {contFilas} y columna {contCols}.");                     
+                    matrizNumeros[contFilas, contCols] = int.Parse( Console.ReadLine() ); //guarda valores en matriz
+                }             
+            }              
+            
+            //Imprimir la matriz con foreach
+            foreach (var item in matrizNumeros) //para cadavbitem que este en la coleccion, habrá una interacción. LA LIMITANTE DEL FOREACH ES QUE LOS RESULTADOS APARENCEN EN LISTA
+            {
+                Console.WriteLine($"Valor: {item}");             
+            } 
+
+            //Imprimir la matriz con for anidado
+            for (int contFilas = 0; contFilas < 3; contFilas++) //se ejecutará de primero las columnas [0,0], [0,1]. [0,2]. [1,0]
+            {
+                for (int contCols = 0; contCols < 3; contCols++)                 
+                {                     
+                    Console.Write($"{matrizNumeros[contFilas, contCols]} \t"); //\t para tabulacion. se escribe WRITE para que, despues de cada item, no de Enter sino que lo imprima ocmo matriz
+                }                 
+                Console.WriteLine();             
+            }         
+        }
+        static void Main(string[] args)         
+        {             
+            Console.WriteLine("Ejercicio 1: arreglos dibimensionales \nHecho por: Diana Pérez");             
+            Actividad1();         
+        } 
+    }
+}
