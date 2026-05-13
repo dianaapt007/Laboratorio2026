@@ -1,0 +1,54 @@
+namespace Lab_11_Diana_Pérez
+{
+    internal class Program
+    {
+        static int[] arregloNumeros = new int[5];
+        static void Actividad1()
+        { //Para guardar los datos en el arreglo
+            for (int i = 0; i < arregloNumeros.Length; i++) //Recorrido con FOR. int nuevo índice. i menor a longitud de arreglo de numeros (en este caso, llega hasta 5), i++, va subiendo uno a uno. Tenemos accedo al índice
+            {
+                Console.WriteLine("Ingrese el número para la posición i:" + i);
+                arregloNumeros[i] = int.Parse(Console.ReadLine());
+            }
+            int sumatoria = 0; //Para imprimir los datos del arreglo
+            foreach (int item in arregloNumeros) //para cada item que este guardado en arreglo se repite. No se tiene accesp al índice
+            {
+                Console.WriteLine("Valor: " + item); sumatoria += item; //sumatoria más algo, encima de algo más
+            }
+            Console.WriteLine("La sumatoria es: " + sumatoria);
+            Console.WriteLine("El promedio es: " + sumatoria / arregloNumeros.Length);
+            /* Esta es otra manera de hacerlo
+            
+            int promedio=0; 
+            //Para imprimir los datos del arreglo 
+            foreach (int item in arregloNumeros) //para cada item que este guardado en arreglo se repite. No se tiene accesp al índice 
+            { 
+                Console.WriteLine("Valor: " + item); 
+                sumatoria += item; //sumatoria más algo, encima de algo más 
+                promedio = sumatoria / 5; 
+            }
+            Console.WriteLine("La sumatoria es: " + sumatoria); 
+            Console.WriteLine("El promedio es: " + promedio); 
+            */
+        }
+        static void Actividad2()
+        {
+            Console.WriteLine("Ingrese el código de la casa: ");
+            string codigoCasa = Console.ReadLine();
+
+            string[] datos = codigoCasa.Split('-'); //Separa cadenas
+            string manzana = datos[0]; //datos en posición 0
+            int numeroCasa = int.Parse(datos[1]); //.Parse -> convierte datos string a int
+
+            Console.WriteLine("La manzana es: " + manzana);
+            Console.WriteLine("El número de casa es: " + numeroCasa);
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Ejercicio 1: Arreglos unidimensionales \nHecho por: Diana Pérez");
+            Actividad1();
+            Console.WriteLine("Ejercicio 2: Separar cadenas \nHecho por: Diana Pérez");
+            Actividad2();
+        }
+    }
+}
