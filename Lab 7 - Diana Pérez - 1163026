@@ -1,0 +1,72 @@
+Console.WriteLine("Ejercicio 1: Menú de opciones");
+Console.WriteLine("Hecho por: Diana Azucena Pérez Torres. 1163026");
+
+int opcion = 1;
+
+while (opcion != 4)//"!=4", un número diferente a 4
+{
+    //Imprimir menú 
+    Console.WriteLine("Menú de opciones: \n 1. Secuencia \n 2. Nómina empleados \n 3. PRomedio\n 4. Salir\n Ingrese su opción: "); //"\n" interlineado
+    opcion = int.Parse(Console.ReadLine());
+
+    switch (opcion)
+    {
+        case 1:
+            Console.WriteLine($"Ingrese el valor final de la secuencia:");
+            int valorFinal = int.Parse(Console.ReadLine());
+            int contador = 1;
+            while (contador <= valorFinal) //menor o igual
+            {
+                Console.WriteLine($"Número : {contador}");
+                contador++; //contador = contador +1. agrega al valor que tiene y le suma uno
+            }
+            break;
+        case 2:
+            Console.WriteLine("Nómina: ");
+            string respuesta = "S"; //S-Sí, para ingresar al bloque de instrucciones
+            float totalNomina = 0;
+
+            while (respuesta == "S" || respuesta == "s") //"||" conector lógico OR
+            {
+                Console.WriteLine("Ingrese el valor del usuario: ");
+                float sueldo = float.Parse(Console.ReadLine());
+                totalNomina += sueldo; //totalNomina =totlNomina +sueldo; 
+
+                Console.WriteLine("¿Desea ingresar otro empleado? (S/N)");
+                respuesta = Console.ReadLine(); //aquí no se hace un Parse, ya que la respuesta es string, no números
+                Console.WriteLine($"Total de nómina: {totalNomina}");
+            }
+            break;
+        case 3:
+            Console.WriteLine("Ingrese cantitad de alumnos: ");
+            int alumnos = int.Parse(Console.ReadLine());
+            float sumaNotas = 0; 
+            int c = 1;         
+            // El ciclo se repite según la cantidad de alumnos
+            while (c <= alumnos)
+            {
+                Console.Write($"Ingrese la nota del estudiante {c}: ");
+                float notaIndividual = float.Parse(Console.ReadLine());
+                
+                sumaNotas = sumaNotas + notaIndividual; 
+                c++; 
+            }
+                
+            if (alumnos > 0)
+            {
+                float promedioFinal = sumaNotas / alumnos;
+                Console.WriteLine($"\nEl promedio final de los {alumnos} alumnos es: {promedioFinal}");
+            }
+            else
+            {
+                Console.WriteLine("No se ingresaron alumnos para promediar.");
+            }
+            break;
+        case 4:
+            Console.WriteLine("Vuelva pronto :)");
+            break;
+        default: //no se cumple ningun case
+            Console.WriteLine("Ingrese un número válido entre 1 y 4");
+            break;
+    }
+}
