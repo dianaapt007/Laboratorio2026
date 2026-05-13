@@ -1,0 +1,80 @@
+class Program
+{
+    static double CalcularAreaCirculo(double radio) //Aquí está la función, bloque de instrucciones que devuelve un valor 
+    {
+        double areaCirculo = Math.PI * Math.Pow(radio, 2); //Pow sirve para potencia, entre los paréntiesis (x,y) x=base (en este caso el radio), y y=valor de potencia        return areaCirculo; //Math-biblioteca de C+  
+        return areaCirculo;
+    }
+
+    static double CalcularAreaCuadrado(double ladoC) //Aquí está la función, bloque de instrucciones que devuelve un valor 
+    {
+        double areaCuadrado = Math.Pow(ladoC, 2);
+        return areaCuadrado;
+    }
+
+    static double CalcularAreaRectangulo(double anchoR, double largoR) //Aquí está la función, bloque de instrucciones que devuelve un valor 
+    {
+        double areaRectangulo = anchoR * largoR;
+        return areaRectangulo;
+    }
+    static double CalcularAreaTriangulo(double baseT, double alturaT) //Aquí está la función, bloque de instrucciones que devuelve un valor 
+    {
+         double areaTriangulo = (baseT * alturaT) / 2;
+         return areaTriangulo;
+    }
+
+        static void Main(string[] args) //void-vacío. Main, inicio de procedimiento en C+ 
+        { //Definir menú 
+            while (true)
+            {
+                Console.WriteLine("Ejercicio 1: Figuras geométricas");
+                Console.WriteLine("Hecho por: Diana PÉREZ");
+                Console.WriteLine("Ingrese una opción del menú: \n 1. Área de círculo \n 2. Área del cuadrado \n 3. Área del rectángulo \n 4. Área del triángulo \n 5. Salir");
+                if (!int.TryParse(Console.ReadLine(), out int opcion) || opcion <1 || opcion >5)
+                {
+                    Console.WriteLine("Opción inválida, ingrese una opción del menú");
+                    continue;
+                }
+
+                switch (opcion)
+                {
+                    case 1:
+                        Console.WriteLine("Ingrese el radio del círculo: ");
+                        double radio = double.Parse(Console.ReadLine()); //almacena números pequeños 
+                        double areaCirculo = CalcularAreaCirculo(radio);
+                        Console.WriteLine($"El área del círculo es: {areaCirculo}");
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Ingrese la medida de un lado del cuadrado: ");
+                        double ladoC = double.Parse(Console.ReadLine());
+                        double areaCuadrado = CalcularAreaCuadrado(ladoC);
+                        Console.WriteLine($"El área del cuadrado es: {areaCuadrado}");
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Ingrese la medida de ancho del rectángulo: ");
+                        double anchoR = double.Parse(Console.ReadLine());
+                        Console.WriteLine("Ingrese la medida de largo del rectángulo: ");
+                        double largoR = double.Parse(Console.ReadLine());
+                        double areaRectangulo = CalcularAreaRectangulo(anchoR, largoR);
+                        Console.WriteLine($"El área del rectángulo es: {areaRectangulo}");
+                        break;
+                    case 4:
+                        Console.WriteLine("Ingrese la base del triángulo: ");
+                        double baseT = double.Parse(Console.ReadLine());
+                        Console.WriteLine("Ingrese la altura del triángulo: ");
+                        double alturaT = double.Parse(Console.ReadLine());
+                        double areaTriangulo = CalcularAreaTriangulo(baseT, alturaT);
+                        Console.WriteLine($"El área del círculo es: {areaTriangulo}");
+                        break;
+                    case 5:
+                        Console.WriteLine("Fin del programa");
+                        return;
+                default:
+                    Console.WriteLine("Opción inválida, ingrese una opción del menú");
+                    break;
+                }
+            }
+        }
+    }
