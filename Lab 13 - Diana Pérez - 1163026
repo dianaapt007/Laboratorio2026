@@ -1,0 +1,81 @@
+namespace Lab13
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Ejercicio 1: Cuenta Bancaria\nHecho por: Diana Pérez");
+            CuentaBancaria miCuentaBancaria = new CuentaBancaria("Diana", 100); //creación de objeto nuevo
+            miCuentaBancaria.depositar(200);
+            miCuentaBancaria.mostrarInformacion();
+            miCuentaBancaria.retirar(300);
+            miCuentaBancaria.depositar(150);
+            miCuentaBancaria.mostrarInformacion();
+            Termostato mitermostato = new Termostato("Egipto", 30);
+            mitermostato.ajustarTemperatura(45);
+            mitermostato.mostrarInformacion();
+        }
+    }
+    class CuentaBancaria
+    {
+        private string titular = ""; //atributos como privados
+        private double saldo = 0;
+        public CuentaBancaria(string titular, double saldo)//metodos o constructor publicos, para acceder a ellos desde afuera. en los contructores, los parámetros definirán el valor del atributo.
+        {
+            this.saldo = saldo;
+            this.titular = titular; //acceder a valores de la clase this.nombre de atributo. "esta" clase es igual a clase.
+        }
+        public void depositar(double CantidadDeposito) //se ejecuta un proceso público.
+        {
+            if (CantidadDeposito > 0)
+            {
+                saldo += CantidadDeposito;
+                Console.WriteLine($"Se deposito la cantidad de: {CantidadDeposito} \nEl nuevo saldo es de: {saldo}.");
+            }
+        }
+        public void mostrarInformacion()
+        {
+            Console.WriteLine($"El titular de la cuenta es: {titular}");
+            Console.WriteLine($"El saldo de la cuenta es: {saldo}");
+        }
+        public void retirar(double CantidadRetiro)
+        {
+            if (saldo >= 0)
+            {
+                if (CantidadRetiro <= saldo)
+                {
+                    saldo -= CantidadRetiro;
+                    Console.WriteLine($"Se retiró la cantidad de: {CantidadRetiro} \nEl nuevo saldo es de: {saldo}");
+                }
+                else
+                {
+                    Console.WriteLine("No es posible retirar esa cantidad de su saldo");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Saldo insuficiente");
+            }
+        }
+    }
+    class Termostato
+    {
+        private string ubicacion = "";
+        private double temperatura = 0;
+        public Termostato(string ubicacion, double temperatura)
+        {
+            this.ubicacion = ubicacion;
+            this.temperatura = temperatura;
+        }
+        public void mostrarInformacion()
+        {
+            Console.WriteLine($"La temperatura es de: {temperatura}");
+            Console.WriteLine($"La ubicación es: {ubicacion}");
+        }
+        public void ajustarTemperatura(double nuevaTemp)
+        {
+            temperatura = nuevaTemp;
+            Console.WriteLine($"La nueva temperatura es de: {temperatura}");
+        }
+    }
+}        
