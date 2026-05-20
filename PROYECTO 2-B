@@ -1,64 +1,55 @@
 namespace PROYECTO_2
 {
-    class Parcela
+    class Proyecto_2
     {
-        public int mesActual = 0;
-        public int mesParaCosechar = 0; 
-        public bool Fertilizante = false;
-        public bool plantaSembrada = false;
-        public double ingresoPlanta = 0;
-        public string nombrePlanta = "Vacío";
-        public int mes = 0;
-        public int mesesContando = 0;
-
-        public int numEmpleados = 0;
-        public int mesesSimular = 0;
-        public double dineroActual = 0;
-        public double sueldoEmpleados = 0;
-        public int filas = 0;
-        public int columnas = 0;
-
-        public Parcela (int mesActual, int mesParaCosechar, bool fertilizante, int numEmpleados, int mesesSimular, double dineroActual, double sueldoEmpleados, int filas, int columnas)
+        static void Main(string[] args)
         {
-            this.mesActual = mesActual;
-            this.mesParaCosechar = mesParaCosechar;
-            this.Fertilizante = fertilizante;
-
-            this.numEmpleados = numEmpleados;
-            this.mesesSimular = mesesSimular;
-            this.dineroActual = dineroActual;
-            this.sueldoEmpleados = sueldoEmpleados;
-            this.filas = filas;
-            this.columnas = columnas;
+            ConfigInicial terreno1 = new ConfigInicial(); //inicia config de Terreno
+            terreno1.ConfigIncial(); //configuración inicial
+            terreno1.ConfigTerreno(); //configuración de terreno
+            terreno1.EjecutarMenu(); //inicia config de menú principal
         }
+    }
+}
 
-        public Parcela[,] terreno;
-        public void IngresarDatosEnTerreno()
+namespace PROYECTO_2
+{
+    class Parcela
+    {      
+        public int mesParaCosechar = 0; //tiempo en que la planta está lista para ser cosechada
+        public int edadMeses = 0; //tiempo en que avanza los meses
+        public bool Fertilizante = false; //valida que parcela tiene fertilizante
+        public bool plantaSembrada = false; //valida que parcela tiene una planta sembrada
+        public double ingresoPlanta = 0; //variable de cuánto genera una planta en específico
+        public string nombrePlanta = "Vacío"; //variable de nombre de la planta en específico
+        public int mesesContando = 0; //contador de meses
+        public bool modificadoPorFetiizante = false; //controlador que parcelas no reciban más del 10% de bono
+        public Parcela()
         {
-            for (int filas = 0; filas < terreno.GetLength(0); filas++)
-            {
-                for (int columnas = 0; columnas < terreno.GetLength(1); columnas++)
-                {
-
-                }
-            }
+            LimpiarParcela();
         }
-
+        public void LimpiarParcela ()
+        {
+            nombrePlanta = "Vacío";
+            ingresoPlanta = 0;
+            mesParaCosechar = 0;
+            plantaSembrada = false;
+            Fertilizante = false;
+            edadMeses = 0;
+            modificadoPorFetiizante = false;
+        }        
         public void DefinirtipoPlanta() //procedure para definir tipo de planta en parcela seleccionada
-        {
-            int opciontipoPlanta = 0; 
-            
+        {            
+            int opciontipoPlanta = 0;             
             while (true) //Validación del menú de tipos de plantas
             {
                 Console.WriteLine("Ingrese tipo de planta a sembrar \n1. Maíz \n2. Zanahoria \n3. Lechuga \n4. Vacío"); //Seleccione opción de menú de tipos de planta
                 if (int.TryParse(Console.ReadLine(), out opciontipoPlanta) && opciontipoPlanta >= 1 && opciontipoPlanta <= 4) //Validar la opcion ingresada sea un numero y esté en rango
-                    if (plantaSembrada = true)
-                        Console.WriteLine("Parcela ocupada");
-                 else 
-                    Console.WriteLine("Caracter inválido, seleccione una opción de tipo de planta:");
-                break;
-            }
-
+                {
+                    break;
+                }
+                Console.WriteLine("Opción inválida. Intente de nuevo");
+            } 
             switch (opciontipoPlanta) //Asignar valores de nombre, ingreso, mes y plantaSembrada para parcela seleccionada
             {                
                 case 1:
@@ -66,50 +57,458 @@ namespace PROYECTO_2
                     ingresoPlanta = 700;
                     mesParaCosechar = 3; 
                     plantaSembrada = true;
-                    mes = 0; 
+                    Fertilizante = false;
                     break;
                 case 2:
                     nombrePlanta = "Zanahoria";
                     ingresoPlanta = 500;
                     mesParaCosechar = 2; 
                     plantaSembrada = true;
-                    mes = 0; 
+                    Fertilizante = false;
                     break;
                 case 3:
                     nombrePlanta = "Lechuga";
-                    ingresoPlanta = 300; 
+                    ingresoPlanta = 200; 
                     mesParaCosechar = 1;
                     plantaSembrada = true;
-                    mes = 0;
+                    Fertilizante = false;
                     break;
                 case 4:
                     nombrePlanta = "Vacío";
                     ingresoPlanta = 0;
                     mesParaCosechar = 0;
                     plantaSembrada = false;
-                    mes = 0; 
+                    Fertilizante = false; 
                     break;                
             }
-            Console.WriteLine("Parcela definida");
-        }
-
-        public void MesesParaCosechar ()
-        {
-            mesActual = +1;
-
-            for (int filas = 0; filas < terreno.GetLength(0); filas++)
+            edadMeses = 0;
+            if (nombrePlanta != "Vacío")
             {
-                for (int columnas = 0; columnas < terreno.GetLength(1); columnas++)
-                {
-                    mes += 1; 
-                    if (mes==mesParaCosechar)
-                        nombrePlanta = "Vacío";
-                    ingresoPlanta = 0;
-                    mesParaCosechar = 0;
-                    plantaSembrada = false;
+                Console.WriteLine($"¡Parcela definida por {nombrePlanta} con éxito!");
+            }
+            else
+            {
+                Console.WriteLine("La parcela se mantendrá despejada.");
+            }
+        }                
+    }
+}
 
+namespace PROYECTO_2
+{
+    internal class ConfigInicial
+    {
+        public int opcion = 0; //opción del menú principal 
+        public int filasPlantar = -1;
+        public int columnasPlantar = 0; 
+        //Variables de configuración inicial
+        public int numEmpleados = 0; //numero de empleados, lo define el usuario
+        public int mesesSimular = 0; //meses a simular, lo define el usuario
+        public double dineroActual = 0; //dinero actual, esta cantidad lo define el usuario y luego va a cambiar 
+        public double sueldoEmpleados = 0; //sueldo de los empleados
+        //Variables de matriz
+        Parcela[,] terreno; //crear matriz 
+        public int filas = 0; //filas de la matriz, definidas por el usuario 
+        public int columnas = 0;//columnas de la matriz, definidas por el usuario 
+        //Variables reporte final
+        public double totalIngresos = 0; //acumulador de ingresos generados por plantas sembradas en el lapso de meses 
+        public double totalEgresos = 0; //acumulador de egresos generados en el programa (fertilizante y sueldos)
+        //Contadores de cosechas acumuladas
+        public int cosechasMaiz = 0; //recorre cuantas parcelas de maíz quedaron sembradas en matriz cuando terminó el programa 
+        public int cosechasZanahoria = 0; //recorre cuantas parcelas de zanahorias quedaron sembradas en matriz cuando terminó el programa
+        public int cosechasLechuga = 0; //recorre cuantas parcelas de lechugas quedaron sembradas en matriz cuando terminó el programa
+        //Variables de tiempo 
+        public int mesesRestantes = 0; //tiempo que se recorre hasta llegar a 0
+        public int mesesTranscurridos = 0; //contador de meses
+
+        public ConfigInicial () {} 
+        public void ConfigIncial() 
+        {
+            Console.WriteLine("PROYECTO 2: Gestión de granja por consola \nHecho por: Diana Pérez. 1163026");
+            do
+            {
+                Console.WriteLine("Ingrese su monto inicial: Q."); //Ingreso de DINERO ACTUAL
+                if (!double.TryParse(Console.ReadLine(), out dineroActual)) //validación de entrada de datos
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    dineroActual = 0;
+                }
+                else if (dineroActual <= 0) 
+                    Console.WriteLine("El monto debe ser mayor a Q.0.00. Vuelva a intentar");
+            } while (dineroActual<=0);
+            do
+            {
+                Console.WriteLine("Ingrese cantidad de empleados: "); //Ingreso de CANTIDAD DE TRABAJADORES
+                if (!int.TryParse(Console.ReadLine(), out numEmpleados)) //validación de entrada de datos
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    numEmpleados = 0;
+                }
+                else if (numEmpleados <= 0)
+                    Console.WriteLine("Necesita al menos 1 empleado");
+            } while (numEmpleados<=0);        
+            do
+            {
+                Console.WriteLine("Ingrese sueldo por empleado: Q."); //Ingreso de SUELDO POR EMPLEADO
+                if (!double.TryParse(Console.ReadLine(), out sueldoEmpleados)) //validación de entrada de datos
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    sueldoEmpleados = 0; 
+                }                    
+                else if (sueldoEmpleados <= 0 || sueldoEmpleados <=80) 
+                    Console.WriteLine("El sueldo debe ser, mínimo +Q.80.00 (salario mínimo)");
+            } while (sueldoEmpleados<80);
+            do
+            {
+                Console.WriteLine("Ingrese cantidad de meses a simular: ");//Ingreso de CANTIDAD DE MESESSIMULAR
+                if (!int.TryParse(Console.ReadLine(), out mesesSimular)) //validación de entrada de datos
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    mesesSimular = 0;
+                }
+                else if (mesesSimular <= 0) 
+                    Console.WriteLine("Debe simular al menos 1 mes");
+            } while (mesesSimular <= 0);             
+            mesesRestantes = mesesSimular; //mesesRestantes es igual a mesesSimular
+            mesesTranscurridos = 0; 
+        } 
+        public void ConfigTerreno()
+        {
+            do
+            {
+                Console.WriteLine("Ingrese la cantidad de filas de su terreno: "); //Ingreso de FILAS de matriz
+                if (!int.TryParse(Console.ReadLine(), out filas)) //validación de datos de entrada
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    filas = 0; 
+                }
+                else if (filas > 10) 
+                {
+                    Console.WriteLine("Su terreno no puede ser mayor a 10*10");
+                    filas = 0; 
+                }
+            } while (filas <=0);
+
+            do
+            {
+                Console.WriteLine("Ingrese la cantidad de columnas de su terreno: "); //Ingreso de COLUMNAS de matriz
+                if (!int.TryParse(Console.ReadLine(), out columnas)) //validación de datos de entrada
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    columnas = 0;
+                }
+                else if (columnas > 10)
+                {
+                    Console.WriteLine("Su terreno no puede ser mayor a 10*10");
+                    columnas = 0;
+                }
+            } while (columnas <= 0);
+
+            terreno = new Parcela[filas, columnas]; 
+
+            for (int f = 0; f < filas; f++) //asignación de cada celda de matriz con Parcela 
+            {
+                for (int c = 0; c < columnas; c++)
+                {
+                    terreno[f,c] = new Parcela(); //parcelas creadas según filas y columnas          
                 }
             }
-}
-}
-}
+            Console.WriteLine("\n¡Su terreno ha sido correctamente configurado! \n");
+        }
+        public void EjecutarMenu()
+        {
+            bool salir = false; //controla el fin, la salida, del programa
+            do
+            {
+                Console.WriteLine($"\nActualmente usted tiene: Dinero: Q.{dineroActual}. Meses Restantes: {mesesRestantes}. Mes Actual: {mesesTranscurridos}."); //mostrar estado actual
+                Console.WriteLine("Seleccione una opcion\n1. Sembrar \n2. Fertilizar \n3. Consultar parcela \n4. Avanzar de mes \n5. Salir \n");
+                if (!int.TryParse(Console.ReadLine(), out opcion)) //validación que sea un número
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    continue; //regresa al inicio
+                }
+                if  (opcion < 1 || opcion > 5) //validación de que el número esté dentro del rango del menú
+                {
+                    Console.WriteLine("Número inexistente en menú, seleccione del listado");
+                    continue; //regresa al inicio 
+                } 
+                    
+                switch (opcion) //ejecución de métodos según la opción seleccionada
+                {
+                    case 1: 
+                        Sembrar();                                              
+                        break; 
+                    case 2: 
+                        Fertilizar();
+                        break;
+                    case 3: 
+                        ConsultarParcela();
+                        break;
+                    case 4: 
+                        AvanzarMes();
+                        break;
+                    case 5: 
+                        salir = true; 
+                        break;
+                    default:
+                        Console.WriteLine("Número inválido. Selecciones una opción del menú:");
+                        break;
+                }
+                if (dineroActual<=0)
+                {
+                    Console.WriteLine("No tiene dinero para continuar. Fin del programa");
+                    salir = true; 
+                }
+            }
+            while (!salir && mesesRestantes > 0 && dineroActual > 0);
+            ReporteFinal();
+        }
+
+        public void Fertilizar ()
+        {
+            if (dineroActual<50) //validación de que haya suficiente dinero para comprar el fertilizante
+            {
+                Console.WriteLine("No cuenta con el suficiente dinero para comprar el fertilizante (Q.50.00)");
+                return; 
+            }
+            int filaFertilizar = -1;
+            int columnaFertilizar = -1;
+
+            do //validación de fila
+            {
+                Console.WriteLine("Ingrese fila de parcela que desea fertilizar: ");
+                if (!int.TryParse(Console.ReadLine(), out filaFertilizar))
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    filaFertilizar = -1; 
+                }
+                else if (filaFertilizar<0||filaFertilizar>=filas)
+                {
+                    Console.WriteLine("Fila fuera de rango del terreno existente. Vuelva a intentar");
+                    filaFertilizar = -1; 
+                }
+            } while (filaFertilizar<0);
+            do //validación de columna
+            {
+                Console.WriteLine("Ingrese columna de parcela que desea fertilizar: ");
+                if (!int.TryParse(Console.ReadLine(), out columnaFertilizar))
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a internar");
+                    columnaFertilizar = -1;                   
+                }
+                else if (columnaFertilizar <0||columnaFertilizar>=columnas)
+                {
+                    Console.WriteLine("Columna fuera de rango del terreno existente. Vuelva a intentar");
+                    columnaFertilizar = -1;
+                }
+            } while (columnaFertilizar <0);
+            
+            if (terreno[filaFertilizar, columnaFertilizar].modificadoPorFetiizante) //validación de fertilizante existente en parcela seleccionada
+            {
+                Console.WriteLine("Esta parcela ya cuenta con los beneficios del fertilizante (directo o por vecindad).");
+                return;
+            }
+            if (terreno[filaFertilizar, columnaFertilizar].Fertilizante)
+            {
+                Console.WriteLine("Esta parcela ya fue el centro de una fertilización");
+                return;
+            }
+            if (!terreno[filaFertilizar, columnaFertilizar].plantaSembrada)
+            {
+                Console.WriteLine("No es posible fertilizar una parcela vacía. Siembre algo primero");
+                return;
+            }
+            
+            dineroActual -= 50; //cobrar fertilizante
+            totalEgresos += 50; //sumar a total de egresos
+            terreno[filaFertilizar, columnaFertilizar].Fertilizante = true; //aplicar beneficio sobre parcela seleccionada
+
+            if (!terreno[filaFertilizar, columnaFertilizar].modificadoPorFetiizante) //Aplicar beneficio a parcela central (si no ha sido modificada antes por vecinos)
+            {
+                terreno[filaFertilizar, columnaFertilizar].ingresoPlanta += (terreno[filaFertilizar, columnaFertilizar].ingresoPlanta * 0.10);
+                terreno[filaFertilizar, columnaFertilizar].modificadoPorFetiizante = true;
+            }
+            if (columnaFertilizar - 1 >= 0) //Aplicar beneficio a la izquierda
+            {
+                if (terreno[filaFertilizar, columnaFertilizar - 1].plantaSembrada && !terreno[filaFertilizar, columnaFertilizar -1].modificadoPorFetiizante)
+                {
+                    terreno[filaFertilizar, columnaFertilizar - 1].ingresoPlanta += (terreno[filaFertilizar, columnaFertilizar - 1].ingresoPlanta * 0.10);
+                    terreno[filaFertilizar, columnaFertilizar - 1].modificadoPorFetiizante = true;
+                }
+            }            
+            if (columnaFertilizar + 1 < columnas) //Aplicar beneficio a la derecha
+            {
+                if (terreno[filaFertilizar, columnaFertilizar + 1].plantaSembrada && !terreno[filaFertilizar, columnaFertilizar + 1].modificadoPorFetiizante)
+                {
+                    terreno[filaFertilizar, columnaFertilizar + 1].ingresoPlanta += (terreno[filaFertilizar, columnaFertilizar + 1].ingresoPlanta * 0.10);
+                    terreno[filaFertilizar, columnaFertilizar + 1].modificadoPorFetiizante = true;
+                }
+            }
+            Console.WriteLine("¡Beneficio de fertilizante aplicado con éxito!");
+        }
+        
+        public void Sembrar()
+        {
+            do //validación de fila
+            {
+                Console.WriteLine("Ingrese fila donde desea plantar: ");
+                if (!int.TryParse(Console.ReadLine(), out filasPlantar))
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    filasPlantar = -1;
+                }
+                else if (filasPlantar < 0 || filasPlantar >= filas)
+                {
+                    Console.WriteLine($"Fila fuera de rango del terreno existente [{filas},{columnas}]. Vuelva a intentar");
+                    filasPlantar = -1;
+                }
+            } while (filasPlantar < 0);
+            do //validación de columnas
+            {
+                Console.WriteLine("Ingrese columna donde desea plantar: ");
+                if (!int.TryParse(Console.ReadLine(), out columnasPlantar))
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    columnasPlantar = -1;
+                }
+                else if (columnasPlantar < 0 || columnasPlantar >= columnas)
+                {
+                    Console.WriteLine("Columa sobrepasa el terreno existente. Vuelva a intentar");
+                    columnasPlantar = -1;
+                }
+            } while (columnasPlantar < 0);
+
+            if (terreno[filasPlantar, columnasPlantar].plantaSembrada)
+            {
+                Console.WriteLine("Parcela ocupada");
+                return; 
+            }
+            terreno[filasPlantar, columnasPlantar].DefinirtipoPlanta();
+        }
+
+        public void ConsultarParcela ()
+        {
+            int filaConsultar = -1;
+            int colConsultar = -1;
+
+            do// Validación de fila
+            {
+                Console.WriteLine("Ingrese fila que desea consultar: ");
+                if (!int.TryParse(Console.ReadLine(), out filaConsultar))
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    filaConsultar = -1;
+                }
+                else if (filaConsultar < 0 || filaConsultar >= filas)
+                {
+                    Console.WriteLine("Fila fuera de rango del terreno existente. Vuelva a intentar");
+                    filaConsultar = -1;
+                }
+            } while (filaConsultar < 0);
+
+            do // Validación de columna
+            {
+                Console.WriteLine("Ingrese columna que desea consultar: ");
+                if (!int.TryParse(Console.ReadLine(), out colConsultar))
+                {
+                    Console.WriteLine("Carácter inválido. Vuelva a intentar");
+                    colConsultar = -1;
+                }
+                else if (colConsultar < 0 || colConsultar >= columnas)
+                {
+                    Console.WriteLine("Columna sobrepasa el terreno existente. Vuelva a intentar");
+                    colConsultar = -1;
+                }
+            } while (colConsultar < 0);
+                        
+            Console.WriteLine("\nINFORMACIÓN DE LA PARCELA \n---"); //Mostrar datos de parcela seleecionada 
+            Console.WriteLine($"Tipo de siembra: {terreno[filaConsultar, colConsultar].nombrePlanta}");
+            Console.WriteLine($"Edad de la planta: {terreno[filaConsultar, colConsultar].edadMeses} meses");
+            //Calcular meses restantes
+            int restantes = terreno[filaConsultar, colConsultar].mesParaCosechar - terreno[filaConsultar, colConsultar].edadMeses;
+            //validar que no se muestre números negativos ni tiempos irreales si parcela está vacía 
+            if (restantes < 0 || !terreno[filaConsultar, colConsultar].plantaSembrada)
+            {
+                restantes = 0;
+            }
+            Console.WriteLine($"Meses restantes para cosechar: {restantes} meses");            
+
+            if (terreno[filaConsultar, colConsultar].Fertilizante) // Verificación de fertilizante para mostrar mensaje
+            {
+                Console.WriteLine("¿Tiene fertilizante?: Sí");
+            }
+            else
+            {
+                Console.WriteLine("¿Tiene fertilizante?: No");
+            }
+            Console.WriteLine("---\n");
+        }
+        public void AvanzarMes()
+        {    
+            double nomina = numEmpleados * sueldoEmpleados; //Pagar empleados
+            dineroActual -= nomina;
+            totalEgresos += nomina;
+            Console.WriteLine($"Se pagaron Q{nomina} de sueldos.");
+                        
+            for (int f = 0; f < filas; f++) //Recorrer el terreno para aumentar edad de las plantas y cosechar
+            {
+                for (int c = 0; c < columnas; c++)
+                {
+                    if (terreno[f,c].plantaSembrada) //Si hay una planta sembrada en alguna parcela recorrida, 
+                    { //entonces
+                        terreno[f, c].edadMeses++; //La planta cumple un mes más de vida
+
+                        if (terreno[f, c].edadMeses >= terreno[f, c].mesParaCosechar) //Si la edad de la planta es igual o mayor a su mes para cosechar
+                        { //entonces
+                            //Cosecha automática
+                            dineroActual += terreno[f, c].ingresoPlanta; //sumar el ingreso generado de la planta a dinero actual
+                            totalIngresos += terreno[f, c].ingresoPlanta; //suma de ingresos generados de la planta a totolIngresos
+
+                            if (terreno[f, c].nombrePlanta == "Maíz") cosechasMaiz++; //Si la parcela tiene una siembra de maíz, se le acumulará 
+                            else if (terreno[f, c].nombrePlanta == "Zanahoria") cosechasZanahoria++; // Si la parcela tiene una siembra de zanahoria, se le acumulará
+                            else if (terreno[f, c].nombrePlanta == "Lechuga") cosechasLechuga++; //Si la parcela tiene una siembra de lechuga, se le acumulará 
+
+                            Console.WriteLine($"¡COSECHA! En [{f},{c}] se cosechó {terreno[f, c].nombrePlanta} por Q{terreno[f, c].ingresoPlanta}");
+                            terreno[f, c].LimpiarParcela(); //Parcela en "vacío" de nuevo
+                        }
+                    }
+                }
+            }            
+            mesesRestantes--; // Actualizamos el tiempo general
+            mesesTranscurridos++; //Registro del mes transcurrido
+            Console.WriteLine("Mes finalizado");
+        }
+   
+        public void ReporteFinal ()
+        {
+            //variables de contador de cuántas plantas quedaron vivas en la matriz
+            int parcelasMaiz = 0;
+            int parcelasZanahorias = 0;
+            int parcelasLechugas = 0;
+            int parcelasVacias = 0;
+
+            for (int f = 0; f < filas; f++) //recorrer la matriz 
+            {
+                for (int c = 0; c < columnas; c++)
+                {
+                    if (terreno[f, c].nombrePlanta == "Maíz") parcelasMaiz++;
+                    else if (terreno[f, c].nombrePlanta == "Zanahoria") parcelasZanahorias++;
+                    else if (terreno[f, c].nombrePlanta == "Lechuga") parcelasLechugas++;
+                    else parcelasVacias++;
+                }
+            }
+            Console.WriteLine("\n---REPORTE FINAL---");
+            Console.WriteLine($"Dinero Final en Caja: Q{dineroActual}");
+            Console.WriteLine($"Total de Ingresos por Cosechas: Q{totalIngresos}");
+            Console.WriteLine($"Total de Egresos (Sueldos/Insumos): Q{totalEgresos}");
+            Console.WriteLine($"Meses Totales Simulados: {mesesTranscurridos} de {mesesSimular}");
+            Console.WriteLine("---\n- Estado Actual de las Parcelas en el Terreno -");
+            Console.WriteLine($"Parcelas con Maíz: {parcelasMaiz}");
+            Console.WriteLine($"Parcelas con Zanahoria: {parcelasZanahorias}");
+            Console.WriteLine($"Parcelas con Lechuga: {parcelasLechugas}");
+            Console.WriteLine($"Parcelas Vacías: {parcelasVacias}");
+            Console.WriteLine($"-");
+            Console.WriteLine($"Total de cosechas \nMaíz: {cosechasMaiz} \nZanahoria: {cosechasZanahoria} \nLechuga: {cosechasLechuga}");
+        }
+    }
+} 
